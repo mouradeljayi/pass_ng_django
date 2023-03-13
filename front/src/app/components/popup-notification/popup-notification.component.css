@@ -1,0 +1,29 @@
+.popup-notification {
+    position: fixed;
+    left: 90%;
+    top: 1%;
+    transform: translateX(-50%);
+    border: 1px solid #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(9, 95, 29, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    z-index: 1;
+  }
+  
+  .popup-notification .message {
+    font-size: 14px;
+    color: #ffffff;
+    margin-right: 10px;
+  }
+  
+  .popup-notification .close-button {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  

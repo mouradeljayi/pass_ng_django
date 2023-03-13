@@ -1,0 +1,31 @@
+
+<section class="main-container">
+  <div class="mb-4">
+    <button class="show-on-mobile btn btn-warning" (click)="showSideBar()">
+      <span class="fas fa-bars"></span>
+    </button>
+  </div>
+    <div class="row min-height-600 no-flex-wrap">
+      <div id="side" class="card col-md-3 mr-2" *ngIf="isVisible" [ngClass]="{'show': isVisible}">
+        <div class="col">
+          <div class="log card mt-3 mb-2 border-none text-center">
+            <img src="../../../assets/img/logo.png">
+          </div>
+          <div>
+            <app-sidebar></app-sidebar>
+          </div>
+        </div>
+      </div>
+      <div id="naveeee" class="card col-md-9 pl-0 pr-0 bg-grey border-none" [ngClass]="{'col-md-12': !isVisible, 'col-md-9': isVisible}">
+        <div id="naveee" class="col pl-0 pr-0 d-flex flex-column justify-content-between">
+          <div id="nave" class="card min-height-80 mb-2">
+            <app-navbar></app-navbar>
+          </div>
+          <div id="navee"  class="card mb-2" style="min-height: 480px">
+            <router-outlet></router-outlet>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>

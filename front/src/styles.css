@@ -1,0 +1,151 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+body {
+  background-color: #eff2F5;
+  font-family: 'Montserrat', sans-serif;
+}
+.top {
+  margin-top: 100px;
+}
+
+.bg-grey {
+  background-color: #eff2F5;
+}
+
+.border-none {
+  border: none;
+}
+
+.min-height-80 {
+  min-height: 50px;
+}
+
+.border-right {
+  border-right: 2px solid #eff2F5;
+}
+
+.custom-border {
+  border: solid #eff2F5;
+  border-radius: 5px;
+}
+
+a:link{
+  text-decoration: none;
+  color: black;
+}
+
+ */
+
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+ /* body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body:not(.dark-mode-preloading) {
+  transition: all 0.3s linear;
+}
+
+body.dark-mode {
+  background-color: #2d3436;
+  color: #2d3436;
+}
+
+
+
+body.light-mode {
+  background-color: #eff2F5;
+  color: #2d3436;
+}
+
+.top {
+  margin-top: 100px;
+}
+
+.bg-grey {
+  background-color: #eff2F5;
+}
+
+.border-none {
+  border: none;
+}
+
+.min-height-80 {
+  min-height: 80px;
+}
+
+.border-right {
+  border-right: 2px solid #eff2F5;
+}
+
+.custom-border {
+  border: solid #eff2F5;
+  border-radius: 5px;
+}
+
+a:link{
+  text-decoration: none;
+  color: black;
+} */
+
+
+
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+  --btn-txt-color: white;
+  --btn-bg-color: rgb(11, 88, 160);
+  --border-c : 1px  #dfdfdf;
+}
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #252222;
+  --btn-txt-color: rgb(46, 43, 43);
+  --btn-bg-color: rgb(20, 211, 195);
+  --border-c : 1px solid #ffffff4b;
+  --border-r : 5px; 
+
+}
+
+
+
+
+body , #side , table , #cte , #cta , #nave ,#navee ,#naveee  , #naveeee , .fi , .log{
+  background: var(--bkg-color);
+}
+
+app-navbar , #side{
+  border : var(--border-c);
+  border-radius: var(--border-r);
+}
+
+
+
+h1,td,a,#lin,h2,label,
+p , th {
+  color: var(--text-color);
+}
+
+
+
+a:link ,.has-child{
+  text-decoration: none;
+  color: black;
+} 
+
+.border-none {
+  border: none;
+}
+
+.min-height-80 {
+  min-height: 80px;
+}
+
+.border-right {
+  border-right: 2px solid #eff2F5;
+}
+
+.custom-border {
+  border: solid #eff2F5;
+  border-radius: 5px;
+}

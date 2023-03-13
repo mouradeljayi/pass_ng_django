@@ -1,0 +1,68 @@
+
+<div class="header">
+    <br>
+    <h2 style="margin-left: 40px;"  class="title">
+  
+      Ajouter un utilisateur
+  
+    </h2>
+  
+    </div>
+  
+  
+  
+    <div class="d-flex align-items-center justify-content-center vh-100">
+  
+    <form (ngSubmit)="submit()" style="margin-bottom: 170px;">
+  
+      <br><br><br>
+      <div class="mb-3 form-group">
+        <label for="appname" class="form-label">Nom</label>
+  
+        <input  formControlName="nom"  style="width: 400px;" type="text" class="rounded-pill form-control" id="nom" >
+  
+        <div style="color: red;font-weight: bold; margin-top: 10px;" *ngIf="f['nom'].touched && f['nom'].invalid" >
+          <div ngForm  *ngIf="f['nom'].errors && f['nom'].errors['required']">Le nom de l'utilisateur est requis !</div>
+          <div *ngIf="f['nom'].errors && f['nom'].errors['minlength']">Le nom de l'utilisateur doit contenir au moins 3 caracteres !</div>
+      </div>
+      </div>
+  
+  
+      <div class="mb-3">
+        <label for="prenom" class="form-label" >Prenom</label>
+        <input formControlName="prenom" style="width: auto;" type="text" style="width: 400px;" class="rounded-pill form-control" id="prenom"  >
+       
+        <div style="color: red;font-weight: bold; margin-top: 10px;" *ngIf="f['prenom'].touched && f['prenom'].invalid"  >
+  
+          <div  *ngIf="f['prenom'].errors && f['prenom'].errors['required']">L'Prenom est requis !</div>
+          <div *ngIf="f['prenom'].errors && f['prenom'].errors['minlength']">La syntaxe de l'Prenom est invalide !</div>
+      </div>
+      <div class="mb-3">
+        <label style="width: auto;" type="text" style="width: 400px;" class="rounded-pill form-control" id="role" for="role" class="form-label">Role</label>
+        <input formControlName="date" style="width: auto;" type="date" style="width: 400px;" class="rounded-pill form-control" id="date" >
+       
+        <select name="Role" id="pet-select" class="rounded-pill form-control" ngModel="Users.Role" >
+          <option value="">--Choisir une option--</option>
+          <option value="utilisateur" >utilisateur</option>
+          <option value="Admin">Admin</option>
+          </select>
+      <div class="mb-3">
+        <label for="date" class="form-label" >Date</label>
+        <input formControlName="date" style="width: auto;" type="date" style="width: 400px;" class="rounded-pill form-control" id="date">    
+      <div style="color: red;font-weight: bold; margin-top: 10px;" *ngIf="f['date'].touched && f['date'].invalid" >
+          <div  *ngIf="f['date'].errors && f['date'].errors['required']">L'date est requis !</div>
+          <div *ngIf="f['date'].errors && f['date'].errors['minlength']">La syntaxe de l'date est invalide !</div>
+      </div>
+      </div>
+  
+      <div class="text-center">
+      <button [disabled]="form.invalid" type="submit" style="margin-top: 30px;" class=" text btn btn-primary" onclick="add()">Enregistrer</button>
+      <button  type="reset" style="margin-top: 30px;margin-left: 20px;" (click)="onCancel()" class=" text btn btn-warning" >Annuler</button>
+  
+      </div>
+      </div>
+      </div>
+    </form>
+    </div>
+  
+  

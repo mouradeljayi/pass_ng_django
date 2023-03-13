@@ -1,0 +1,57 @@
+
+  .file-input {
+    width: 100%;
+  
+  }
+
+  .file-input label {
+    display: block;
+    margin-bottom: 5px;
+   
+  }
+
+  .file-input input[type="file"] {
+    display: block;
+   
+    font-size: 16px;
+    color: #555;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .file-input input[type="file"]:focus {
+    outline: none;
+    border: 1px solid #4d90fe;
+  }
+
+  .file-input input[type="file"]::file-selector-button {
+    background-color: #4d90fe;
+    color: #fff;
+    border-radius: 3px;
+   
+    cursor: pointer;
+  }
+
+  .file-input input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+
+  .file-input input[type="file"]::before {
+    content: 'Select a File';
+    display: inline-block;
+    background-color: #4d90fe;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 3px;
+    
+    cursor: pointer;
+  }
+
+  .file-input input[type="file"]:hover::before {
+    background-color: #357ae8;
+  }
+
+  .file-input input[type="file"]:active::before {
+    background-color: #357ae8;
+  }

@@ -1,0 +1,202 @@
+.rating-popup {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.popup-content {
+  background-color: white;
+  padding: 40px;
+  width: 40%;
+  border-radius: 10px;
+  height: 160px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+a.disabled-link {
+  color: gray;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+
+
+.file-input {
+  background-color: #fff;
+  width: 100%;
+
+}
+
+.file-input label {
+  display: block;
+  margin-bottom: 5px;
+
+}
+
+.file-input input[type="file"] {
+  display: block;
+
+  font-size: 16px;
+  color: #555;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.file-input input[type="file"]:focus {
+  outline: none;
+  border: 1px solid #4d90fe;
+}
+
+.file-input input[type="file"]::file-selector-button {
+  background-color: #4d90fe;
+  color: #fff;
+  border-radius: 3px;
+
+  cursor: pointer;
+}
+
+.file-input input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.file-input input[type="file"]::before {
+  content: 'Select a File';
+  display: inline-block;
+  background-color: #4d90fe;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 3px;
+
+  cursor: pointer;
+}
+
+.file-input input[type="file"]:hover::before {
+  background-color: #357ae8;
+}
+
+.file-input input[type="file"]:active::before {
+  background-color: #357ae8;
+}
+
+/*pagination*/
+.selectSize {
+  padding: 5px;
+  width: 70px;
+  border: none;
+  border-radius: 5px;
+  background: #17a2b8;
+  color: white;
+  font-family: bold;
+  font-weight: bold;
+}
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  .popup-content {
+    background-color: white;
+    padding: 40px;
+    width: 40%;
+    border-radius: 10px;
+    height:160px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  a.disabled-link {
+    color: gray;
+    pointer-events: none;
+    text-decoration: none;
+  }
+  
+
+  
+  .file-input {
+    background-color: #fff;
+    width: 100%;
+  
+  }
+
+  .file-input label {
+    display: block;
+    margin-bottom: 5px;
+   
+  }
+
+  .file-input input[type="file"] {
+    display: block;
+   
+    font-size: 16px;
+    color: #555;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .file-input input[type="file"]:focus {
+    outline: none;
+    border: 1px solid #4d90fe;
+  }
+
+  .file-input input[type="file"]::file-selector-button {
+    background-color: #4d90fe;
+    color: #fff;
+    border-radius: 3px;
+   
+    cursor: pointer;
+  }
+
+  .file-input input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+
+  .file-input input[type="file"]::before {
+    content: 'Select a File';
+    display: inline-block;
+    background-color: #4d90fe;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 3px;
+    
+    cursor: pointer;
+  }
+
+  .file-input input[type="file"]:hover::before {
+    background-color: #357ae8;
+  }
+
+  .file-input input[type="file"]:active::before {
+    background-color: #357ae8;
+  }
+
+  select option[data-icon]:before {
+    font-family: "Bootstrap Icons";
+    content: attr(data-icon);
+    display: inline-block;
+    margin-right: 5px;
+  }
+  select{
+    padding:8px 5px;
+    border-radius:5px;
+    color:#333;
+    width:100px;
+  }
+  
+

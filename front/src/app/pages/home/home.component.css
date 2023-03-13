@@ -1,0 +1,37 @@
+.main-container {
+  margin: 50px;
+}
+
+.min-height-600 {
+  min-height: 600px;
+}
+
+.no-flex-wrap {
+  flex-wrap: inherit;
+}
+
+.show-on-mobile {
+  display: none;
+}
+
+.z {
+  z-index: 0;
+}
+.show {
+  z-index: auto;
+  
+}
+
+@media (max-width: 767px) {
+  .show-on-mobile {
+    display: block;
+  }
+  .show {
+    position: absolute;
+    z-index: 1;
+    width: 85%;
+    padding: 10px;
+    height: 100%;
+    
+  }
+}

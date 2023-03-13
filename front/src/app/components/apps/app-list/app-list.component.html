@@ -1,0 +1,226 @@
+<br>
+<app-popup-notification [bgColor]="bgColor" *ngIf="successMessage" [message]="successMessage"
+  #popup></app-popup-notification>
+
+<app-popup-notification [bgColor]="bgColor" *ngIf="errorMessage" [message]="errorMessage"
+  #popup></app-popup-notification>
+
+
+
+<div class="row p-3 justify-content-end">
+
+  <div class="col-md-5">
+    <div class="input-group">
+      <input class="input" type="text" class="form-control" placeholder="Chercher" name="search"
+        [(ngModel)]="searchtext" autocomplete="off">
+      <span class="input-group-text"> <i class="fa-solid fa-search"></i></span>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="cte" class="container-fluid">
+  <div class="col-md-12">
+    <div class="d-flex justify-content-between">
+      <button (click)="navigate()" type="button" class=" btn btn-info"><i class="fa-solid fa-plus"></i>&nbsp;Ajouter une
+        application</button>
+
+      <button class="btn btn-dark" (click)="makepdf()"> <span class="fas fa-file-export"></span> Exporter</button>
+
+    </div>
+  </div>
+
+  <br>
+
+
+
+
+
+  <div class="d-flex mb-3">
+
+    <table class="table table-striped">
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1" scope="col">#</th>
+          <th class="col-2" scope="col">Applications</th>
+          <th class="col-3" scope="col">URL</th>
+          <th class="col-3" scope="col">Date creation </th>
+          <th class="col-3" scope="col">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+
+
+
+
+        <!-- 
+      <tr  class="d-flex" >
+  
+        <th class="col-1" scope="row">11</th>
+        <th class="col-2">zozkozz</th>
+        <td  class="col-4"><a class="has-child " href="">zzjpjzjzjjzpjzppjzpjz</a></td>
+        <td class="col-2">zojzoj^z</td>
+        <td class="col-3">
+        <button style="margin-right: 40px;" type="button" class="btn btn-success" data-toggle="modal"
+            data-target="#update">Modifier</button>
+
+           
+        </td>
+      </tr>
+      <tr  class="d-flex" >
+  
+        <th class="col-1" scope="row">11</th>
+        <th class="col-2">zozkozz</th>
+        <td  class="col-4"><a class="has-child " href="">zzjpjzjzjjzpjzppjzpjz</a></td>
+        <td class="col-2">zojzoj^z</td>
+        <td class="col-3">
+       <button style="margin-right: 40px;" type="button" class="btn btn-success" data-toggle="modal"
+            data-target="#update">Modifier</button>
+
+           
+        </td>
+      </tr> -->
+
+
+
+
+        <tr class="d-flex" *ngFor="let app of apps | filter : searchtext | paginate
+      : {
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };
+        let i = index">
+
+          <td class="col-1" scope="row">{{app.id}}</td>
+          <td class="col-2">{{app.NomApp}}</td>
+          <td class="col-3"><a id="lin" class="has-child " href="{{app.UrlApp}}">{{app.UrlApp}}</a></td>
+          <td class="col-3">{{app.Datecreation | date:'medium'}}</td>
+          <td class="col-3">
+            <!--<button style="margin-right: 40px;" type="button" class="btn btn-success" data-toggle="modal"
+            data-target="#update">Modifier</button>-->
+
+            <button style="margin-right: 40px;" data-toggle="modal" data-target="#update"
+              (click)="getAppData(app.id , app.NomApp , app.UrlApp , app.Datecreation)" type="button"
+              class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i></button>
+
+            <button type="button" class="btn btn-danger" (click)="openDeleteModal(app.id)"><i
+                class="fa-sharp fa-solid fa-trash"></i></button>
+
+          </td>
+        </tr>
+
+
+
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <div>
+      <select (change)="onTableSizeChange($event)" class="selectSize">
+        <option *ngFor="let size of tableSizes">
+          {{size}}
+        </option>
+      </select>
+    </div>
+    <pagination-controls previousLabel="Prec" nextLabel="Suiv" (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Attention , cette action est irréversible !
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-danger" (click)="delete()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modifier une application</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+
+            <label for="NomApp" class="form-label">Nom application : </label>
+            <input name="NomApp" value="{{NomApp}}" [(ngModel)]="NomApp" style="width: 400px;" type="text"
+              class="rounded-pill form-control" id="NomAPp">
+
+
+            <label for="UrlApp" class="form-label">URL application : </label>
+            <input name="UrlApp" [(ngModel)]="UrlApp" value="{{UrlApp}}" style="width: 400px;" type="text"
+              class="rounded-pill form-control" id="UrlApp">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="updateApp()">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table class="table table-striped" hidden id="table_export">
+
+  <thead>
+
+    <tr class="d-flex">
+      <th class="col-1" scope="col">#</th>
+      <th class="col-2" scope="col">Applications</th>
+      <th class="col-4" scope="col">URL</th>
+      <th class="col-2" scope="col">Date creation </th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+
+
+
+    <tr class="d-flex" *ngFor="let app of apps | filter : searchtext">
+
+      <th class="col-1" scope="row">{{app.id}}</th>
+      <td class="col-2">{{app.NomApp}}</td>
+      <td class="col-4"><a class="has-child " href="{{app.UrlApp}}">{{app.UrlApp}}</a></td>
+      <td class="col-2">{{app.Datecreation | date:'medium'}}</td>
+
+    </tr>
+
+
+
+  </tbody>
+</table>

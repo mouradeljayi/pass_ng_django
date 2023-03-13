@@ -1,0 +1,84 @@
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="container" id="container">
+  <div class="form-container sign-up-container"></div>
+  <div class="form-container sign-in-container">
+    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+      <img src="assets/logo.png" alt="Your Logo" class="logo" />
+
+      <h4>Bienvenue à Päiperléck</h4>
+
+      <div>
+        <!-- verification d'email-->
+        <label for="email"></label>
+        <div>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            #emailField="ngModel"
+            required
+            email
+            id="inputEmail"
+            placeholder="Email"
+            [class.is-invalid]="
+              emailField.invalid && (emailField.dirty || emailField.touched)
+            "
+          />
+          <div
+            *ngIf="
+              emailField.invalid && (emailField.dirty || emailField.touched)
+            "
+            class="invalid-feedback"
+          >
+            <span *ngIf="emailField.errors?.['required']"
+              >Email est requis.</span
+            >
+            <span *ngIf="emailField.errors?.['email']"
+              >Email doit être valide.</span
+            >
+          </div>
+
+          <label for="password"></label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            #passwordField="ngModel"
+            required
+            id="inputPassword"
+            placeholder="Mot de passe"
+            [class.is-invalid]="
+              passwordField.invalid &&
+              (passwordField.dirty || passwordField.touched)
+            "
+          />
+          <div
+            *ngIf="
+              passwordField.invalid &&
+              (passwordField.dirty || passwordField.touched)
+            "
+            class="invalid-feedback"
+          >
+            <span *ngIf="passwordField.errors?.['required']"
+              >Mot de passe est requis.</span
+            >
+          </div>
+        </div>
+		<div *ngIf="authService.errorMessage && authService.isFormSubmitted" class="error">
+			<i class="fa fa-exclamation-circle error-icon" aria-hidden="true"></i>
+			<span class="error-text">{{ authService.errorMessage }}</span>
+		  </div>
+		
+		  <br>
+        <button type="submit">Login</button>
+		<br>
+		
+		
+      </div>
+    </form>
+  </div>
+</div>

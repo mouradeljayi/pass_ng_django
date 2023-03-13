@@ -1,0 +1,98 @@
+<br>
+<app-popup-notification [bgColor]="bgColor" *ngIf="successMessage" [message]="successMessage" #popup></app-popup-notification>
+
+<app-popup-notification [bgColor]="bgColor" *ngIf="errorMessage" [message]="errorMessage" #popup></app-popup-notification>
+
+<!--  Formulaire d'ajout des utilisateurs -->
+<div class="header">
+  <br>
+
+
+  <!-- le titre du formulaire-->
+  <h2 style="margin-left: 40px;" class="title">
+
+    Ajouter un utilisateur
+
+  </h2>
+
+</div>
+<form [formGroup]="form" >
+<div class="row">
+  <div class="col ml-5 my-2">
+    <label for="Name" class="form-label">Nom</label>
+      <input [(ngModel)]="userf.Name" formControlName="Name" style="width: 400px;" type="text" class="rounded-pill form-control" id="Name">
+      <div style="color: red;font-weight: bold; margin-top: 10px;" *ngIf="f['Name'].touched && f['Name'].invalid">
+        <div ngForm *ngIf="f['Name'].errors && f['Name'].errors['required']">Le Nom de l'utilisateur est requis !</div>
+        <div *ngIf="f['Name'].errors && f['Name'].errors['minlength']">Le nom de l'utilisateur doit contenir au moins 3
+          caracteres !</div>
+      </div>
+  </div>
+  <div class="col ml-5  my-2">
+    <label for="Lastname" class="form-label">Lastname</label>
+    <input [(ngModel)]="userf.Lastname" formControlName="Lastname" style="width: auto;" type="text" style="width: 400px;"
+      class="rounded-pill form-control" id="Lastname">
+    <div style="color: red;font-weight: bold; margin-top: 10px;" *ngIf="f['Lastname'].touched && f['Lastname'].invalid">
+      <div *ngIf="f['Lastname'].errors && f['Lastname'].errors['required']">Le prénom est requis !</div>
+      <div *ngIf="f['Lastname'].errors && f['Lastname'].errors['minlength']">La syntaxe de l'Prenom est invalide !</div>
+    </div>  </div>
+</div>
+
+
+<div class="row">
+  <div class="col ml-5  my-2">
+    <label for="Email" class="form-label">Email</label>
+        <input [(ngModel)]="userf.Email" formControlName="Email" style="width: auto;" type="Email" style="width: 400px;"
+          class="rounded-pill form-control" id="Email">
+        <div style="color: red;font-weight: bold; margin-top: 10px;" *ngIf="f['Email'].touched && f['Email'].invalid">
+          <div *ngIf="f['Email'].errors && f['Email'].errors['required']">L'Email est requis !</div>
+          <div *ngIf="f['Email'].errors && f['Email'].errors['minlength']">La syntaxe de l'email est invalide !</div>
+        </div>
+  </div>
+  <div class="col ml-5  my-2">
+    <label for="role">Role: </label>
+    <select [(ngModel)]="userf.Role" id="role" formControlName="Role" class="rounded-pill form-control" style="width: auto;" type="text" style="width: 400px;">
+      
+      <option value="">-- choisir un role --</option>
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+      <option value="superadmin">SuperAdmin</option>
+      <option *ngFor="let role of Roles" [value]="role">{{ role }}</option>
+    </select>  
+  </div>
+</div>
+
+<div class="row">
+  <div class=" col mx-5">
+    <label for="Note">Note:</label>
+    <textarea id="Note" [(ngModel)]="userf.Note" formControlName="Note" class="form-control rounded-pill "></textarea>
+    <div style="color: red;font-weight: bold; margin-top: 10px;" *ngIf="f['Note'].touched && f['Note'].invalid">
+      <div *ngIf="f['Note'].errors && f['Note'].errors['required']">L'Note est requis !</div>
+      <div *ngIf="f['Note'].errors && f['Note'].errors['minlength']">La syntaxe de l'Prenom est invalide !</div>
+    </div>
+  </div>
+ 
+</div>
+
+<div class="row">
+  
+  <div class="col mx-5  my-2  file-input">
+<label for="image">Image:</label>
+<input class="rounded-pill"  data-title="uplaod" type="file" [(ngModel)]="userf.image" (change)="uploadImage($event)"  formControlName="image" />
+  </div>
+  <div class="col mx-5   my-2 file-input " >
+    <label for="field">File:</label>
+    <input class="rounded-pill" type="file" [(ngModel)]="userf.field"  (change)="uploadFile($event)"formControlName="field" /> </div>
+</div>
+
+
+  
+  <div class="text-center  my-2">
+  <button [disabled]="form.invalid"  type="submit" style="margin-top: 30px;" class=" text btn btn-primary"
+  (click)="createUser()"><i class="fa-solid fa-floppy-disk" ></i>&nbsp;Enregistrer</button>
+
+  <!-- le boutons enregistrer enitialise la methode add qui fait annule la commende -->
+
+  <button  type="reset" style="color:rgb(255, 255, 255) ; margin-top: 30px;margin-left: 20px;" (click)="onCancel()"
+    class=" text btn btn-warning"><i style="color:rgb(255, 255, 255)" class="fa-solid fa-xmark"></i>&nbsp;Annuler</button>
+  </div>
+</form>

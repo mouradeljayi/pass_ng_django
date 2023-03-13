@@ -1,0 +1,24 @@
+:host {
+    height: 100vh;
+  }
+  
+  :host,
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    margin: auto 0;
+  }
+  
+  footer {
+    margin-bottom: 1rem;
+  }
+  
+  a {
+    color: inherit;
+  }
+  

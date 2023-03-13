@@ -1,0 +1,81 @@
+<br>
+<app-popup-notification [bgColor]="bgColor" *ngIf="successMessage" [message]="successMessage" #popup></app-popup-notification>
+
+<app-popup-notification [bgColor]="bgColor" *ngIf="errorMessage" [message]="errorMessage" #popup></app-popup-notification>
+
+<div class="header">
+    <br />
+    <h2 style="margin-left: 40px;margin-bottom: 40px;" class="title">Ajouter une application</h2>
+  </div>
+  
+  <div style="margin-left: 40px" class="d-flex">
+    <form [formGroup]="form"  style="margin-bottom: 170px">
+      <div class="mb-3 form-group">
+        <label for="appname" class="form-label">Nom application : </label>
+        <input
+          [(ngModel)]="appf.NomApp"
+          formControlName="appname"
+          style="width: 400px"
+          type="text"
+          class="rounded-pill form-control"
+          id="appname"
+        />
+        <div
+          style="color: red; font-weight: bold; margin-top: 10px"
+          *ngIf="f['appname'].touched && f['appname'].invalid"
+        >
+          <div *ngIf="f['appname'].errors && f['appname'].errors['required']">
+            Le nom de l'app est requis !
+          </div>
+          <div *ngIf="f['appname'].errors && f['appname'].errors['minlength']">
+            Le nom de l'app doit contenir au moins 3 caracteres !
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="appurl" class="form-label">Url application : </label>
+        <input
+        [(ngModel)]="appf.UrlApp"
+          formControlName="appurl"
+          style="width: auto"
+          type="text"
+          style="width: 400px"
+          class="rounded-pill form-control"
+          id="appurl"
+        />
+        <div
+          style="color: red; font-weight: bold; margin-top: 10px"
+          *ngIf="f['appurl'].touched && f['appurl'].invalid"
+        >
+          <div *ngIf="f['appurl'].errors && f['appurl'].errors['required']">
+            L'URL est requis !
+          </div>
+          <div *ngIf="f['appurl'].errors && f['appurl'].errors['pattern']">
+            La syntaxe de l'url est invalide !
+          </div>
+        </div>
+      </div>
+  
+      <div class="text-center">
+        <button
+          [disabled]="form.invalid"
+          type="submit"
+          style="margin-top: 30px"
+          class="text btn btn-primary"
+          (click)="createApp()"
+        ><i class="fa-solid fa-floppy-disk"></i>
+          Enregistrer
+        </button>
+        <button
+          type="reset"
+          style="margin-top: 30px; margin-left: 20px"
+          (click)="onCancel()"
+          class="text-light btn btn-warning"
+        ><i class="fa-sharp fa-solid fa-ban"></i>
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+  

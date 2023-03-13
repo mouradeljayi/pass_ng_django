@@ -1,0 +1,161 @@
+<div class="col">
+  <div class="row p-0 m-3">
+      <div class="col">
+          <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                  <div class="row justify-content-center">
+                      <div class="col-auto">
+                          <div class=" bg-warning text-white p-3 rounded-circle shadow">
+                            <i class="fas fa-tablet fa-2x"></i>
+                          </div>
+                        </div>
+                      <div class="col mt-3 text-center">
+                        <div class="card-title text-uppercase text-muted mb-0">Total Apps</div>
+                        <span class="h2 font-weight-bold mb-0">{{ totalApps }}</span>
+                      </div>
+                      
+                    </div>
+                    
+              </div>
+            </div>
+      </div>
+
+      <div class="col">
+        <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <div class=" bg-success text-white p-3 rounded-circle shadow">
+                          <i class="fas fa-users fa-2x"></i>
+                        </div>
+                      </div>
+                    <div class="col mt-3 text-center">
+                      <div class="card-title text-uppercase text-muted mb-0">Total Users</div>
+                      <span class="h2 font-weight-bold mb-0">{{ totalUsers }}</span>
+                    </div>
+                    
+                  </div>
+                  
+            </div>
+          </div>
+    </div>
+
+    <div class="col">
+      <div class="card card-stats mb-4 mb-xl-0">
+          <div class="card-body">
+              <div class="row justify-content-center">
+                  <div class="col-auto">
+                      <div class=" bg-warning text-white p-3 rounded-circle shadow">
+                        <i class="fas fa-tablet fa-2x"></i>
+                      </div>
+                    </div>
+                  <div class="col mt-3 text-center">
+                    <div class="card-title text-uppercase text-muted mb-0">Total Apps</div>
+                    <span class="h2 font-weight-bold mb-0">{{ totalApps }}</span>
+                  </div>
+                  
+                </div>
+                
+          </div>
+        </div>
+  </div>
+
+  <div class="col">
+    <div class="card card-stats mb-4 mb-xl-0">
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class=" bg-success text-white p-3 rounded-circle shadow">
+                      <i class="fas fa-users fa-2x"></i>
+                    </div>
+                  </div>
+                <div class="col mt-3 text-center">
+                  <div class="card-title text-uppercase text-muted mb-0">Total Users</div>
+                  <span class="h2 font-weight-bold mb-0">{{ totalUsers }}</span>
+                </div>
+                
+              </div>
+              
+        </div>
+      </div>
+</div>
+    
+
+  
+      
+      
+  </div>
+  <hr>
+  <div class="row align-items-center">
+      <div class="col-sm-8">
+       <div class="d-flex justify-content-between">
+        <h6>Liste des utilisateurs</h6>
+        <button routerLink="/listuser" class="mb-2 btn btn-m btn-info">Voir plus</button>
+       </div>
+       <table class="table table-bordered rounded-circle" style="border-radius: 10px;">
+          <thead class="bg-secondary">
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">role</th>
+              <th scope="col">Etat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users | slice:0:6">
+              <td>{{ user.Name }}</td>
+              <td>{{ user.Lastname }}</td>
+              <td>{{ user.Email }}</td>
+              <td>{{ user.Role }}</td>
+              <!-- <td><span class="badge" [ngClass]="{'badge-success': user.Etat, 'badge-danger': !user.Etat}">{{ user.Etat ? 'active' : 'inactive' }}</span></td> -->
+            </tr>
+           
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4">
+          <h6>utilisateurs par application</h6>
+          <canvas baseChart
+          [type]="'pie'"
+          [datasets]="pieChart2Datasets"
+          [labels]="pieChart2Labels"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [legend]="pieChartLegend">
+      </canvas>
+      </div>
+      
+  </div>
+  <hr>
+  <div class="row justify-content-center mt-4">
+  <div class="col-sm-8">
+    <h6>utilisateurs par jour</h6>
+    <canvas baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [type]="'bar'">
+  </canvas>
+  </div>
+  <div class="col-sm-4 text-center">
+    <h6>utilisateurs par rôle</h6>
+    <canvas baseChart
+    [type]="'pie'"
+    [datasets]="pieChartDatasets"
+    [labels]="pieChartLabels"
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [legend]="pieChartLegend">
+</canvas>
+  </div>
+  </div>
+  <hr>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-12">
+      
+      
+    </div>
+  </div>
+</div>

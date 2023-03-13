@@ -1,0 +1,391 @@
+<br>
+<app-popup-notification [bgColor]="bgColor" *ngIf="successMessage" [message]="successMessage"
+  #popup></app-popup-notification>
+
+<app-popup-notification [bgColor]="bgColor" *ngIf="errorMessage" [message]="errorMessage"
+  #popup></app-popup-notification>
+
+<div class="row p-3 justify-content-end">
+  <div class="col-md-5">
+    <div class="input-group">
+      <input class="input" type="text" class="form-control" placeholder="Chercher" name="search"
+        [(ngModel)]="searchText" autocomplete="off">
+      <span class="input-group-text"> <i class="fa-solid fa-search"></i></span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container">
+
+  <div class="col-md-12">
+    <div class="d-flex justify-content-between">
+      <button (click)="navigate()" type="button" class=" btn btn-info"><i class="fa-solid fa-plus"></i>&nbsp;Ajouter un
+        utilisateur</button>
+      <button class="btn btn-dark" (click)="makepdf()"> <span class="fas fa-file-export"></span> Exporter</button>
+
+  <div class="row">
+
+    <div class="col-md-10">
+      <div class="d-flex justify-content-right align-item-center ">
+       <div class="form-group">
+        <button (click)="navigate()" type="button" class=" btn btn-info">
+          <i class="fa-solid fa-plus"></i>&nbsp;Ajouter un utilisateur
+        </button>
+       </div>
+       
+       <div class="form-group">
+        <select style="font-family:Montserrat ;" id="role-select" (change)="filterByRole($event)" class=" form-control text-light bg-info ml-3">
+          
+          <option value="" selected> Filter</option>
+          <option value="admin">Admin</option>
+          <option value="superadmin">SuperAdmin</option>
+          <option value="user">User</option>
+        </select>
+       </div>
+       
+      </div>
+
+    </div>
+    <div class="col text-right">
+    <button class="btn btn-dark" (click)="makepdf()"> <span class="fas fa-file-export"></span> Exporter</button>
+  </div>
+  </div>
+</div>
+
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Image</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Role</th>
+
+      <!-- <th scope="col">Etat</th> -->
+
+      <th scope="col">Note</th>
+      <th scope="col">file</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let user of users | filter:searchText | paginate
+    : {
+        itemsPerPage: tableSize,
+        currentPage: page,
+        totalItems: count
+      };
+      let i = index
+      ">
+
+    <tr *ngFor="let user of filteredData | filter:searchText ">
+
+
+      <td><img src="{{ user.image ? user.image : defaultImg }}" class="rounded-circle" width="50" height="50"></td>
+      <td>{{ user.Name }}</td>
+      <td>{{ user.Lastname }}</td>
+      <td>{{ user.Email }}</td>
+      <td>{{ user.Role }}</td>
+
+      <!-- <td><span class="badge" [ngClass]="{'badge-success': user.Etat, 'badge-danger': !user.Etat}">{{ user.Etat ? 'active' : 'inactive' }}</span></td> -->
+
+      <td>
+        <button class="btn btn-secondary btn-sm" (click)="showRating = true; selectedItem = user">
+          <span class="fas fa-eye"></span>
+        </button>
+      </td>
+      <td>
+        <a *ngIf="user.field" href="{{ user.field }}" download="{{ user.field }}" class="btn btn-sm btn-info">
+          <span class="fas fa-download"></span>
+        </a>
+        <button *ngIf="!user.field" class="text-sm" disabled><span class="fas fa-download"></span></button>
+      </td>
+      <td class="d-flex justify-content-between ">
+        <button (click)="Openmodal(user.id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+
+        <div class="dropdown ">
+          <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-edit"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button data-toggle="modal" data-target="#updateuser"
+              (click)="getUserData(user.id , user.Name , user.Email , user.Lastname,user.Role,user.Note,user.Datecreation,user.field,user.image)"
+              class="btn btn-warning btn-sm dropdown-item"> Modifier utilisateur
+            </button>
+            <button class="btn btn-success btn-sm dropdown-item" routerLink="/password/{{user.id}}"> modifier mot de
+              passe</button>
+          </div>
+        </div>
+
+
+        <button data-toggle="modal" data-target="#updateuser"
+          (click)="getUserData(user.id , user.Name , user.Email , user.Lastname,user.Role,user.Note,user.Datecreation,user.field,user.image)"
+          class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+
+        <button class="btn btn-success btn-sm"><span class="fas fa-plus"
+            routerLink="/addapppwd/{{user.id}}"></span></button>
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>
+
+  <br>
+  <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">Role</th>
+
+              <!-- <th scope="col">Etat</th> -->
+
+              <th scope="col">Note</th>
+              <th scope="col">file</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr *ngFor="let user of users | filter:searchText">
+              
+              <td><img src="{{ user.image ? user.image : defaultImg }}" class="rounded-circle" width="50" height="50"></td>
+              <td>{{ user.Name }}</td>
+              <td>{{ user.Lastname }}</td>
+              <td>{{ user.Email }}</td>
+              <td>{{ user.Role }}</td>
+
+              <!-- <td><span class="badge" [ngClass]="{'badge-success': user.Etat, 'badge-danger': !user.Etat}">{{ user.Etat ? 'active' : 'inactive' }}</span></td> -->
+
+              <td> 
+                  <button class="btn btn-secondary btn-sm" (click)="showRating = true; selectedItem = user">
+                      <span class="fas fa-eye"></span>
+                    </button>   
+                </td>
+                <td> 
+                  <a *ngIf="user.field" href="{{ user.field }}" download="{{ user.field }}" class="btn btn-sm btn-info">
+                    <span class="fas fa-download"></span>
+                </a>
+                <button *ngIf="!user.field" class="text-sm" disabled ><span class="fas fa-download"></span></button>
+                 </td>
+              <td class="d-flex justify-content-between ">
+                  <button (click)="Openmodal(user.id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+
+                  <div class="dropdown ">  
+                    <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <button  data-toggle="modal"
+                      data-target="#updateuser"  (click)="getUserData(user.id , user.Name , user.Email , user.Lastname,user.Role,user.Note,user.Datecreation,user.field,user.image)" class="btn btn-warning btn-sm dropdown-item" > Modifier utilisateur
+                      </button>
+                      <button   class="btn btn-success btn-sm dropdown-item" routerLink="/password/{{user.id}}"> modifier mot de passe</button>
+                    </div>
+                  </div>
+
+
+                  <button  data-toggle="modal"
+                  data-target="#updateuser"  (click)="getUserData(user.id , user.Name , user.Email , user.Lastname,user.Role,user.Note,user.Datecreation,user.field,user.image)" class="btn btn-warning btn-sm" ><i class="fas fa-edit"></i></button>
+
+                  <button   class="btn btn-success btn-sm"><span class="fas fa-plus" routerLink="/addapppwd/{{user.id}}"></span></button>
+              </td> 
+          
+          </tr>
+          
+          </tbody>
+          
+        </table>
+       
+
+
+<div class="rating-popup" *ngIf="showRating">
+  <div class="popup-content">
+    <p>La note est : {{selectedItem?.Note}}</p>
+    <hr>
+    <div class="mt-3 float-right">
+      <button mat-raised-button (click)="showRating = false" class="btn btn-secondary btn-sm text-end">Fermer</button>
+    </div>
+  </div>
+</div>
+
+
+<table hidden class="table table-striped" id="userlist">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Role</th>
+      <th scope="col">Etat</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users 
+    | paginate
+    : {
+        itemsPerPage: tableSize,
+        currentPage: page,
+        totalItems: count
+      };
+      let i = index
+      ">
+      <td>{{ user.Name }}</td>
+      <td>{{ user.Lastname }}</td>
+      <td>{{ user.Email }}</td>
+      <td>{{ user.Role }}</td>
+      <!-- <td><span class=" badge" [ngClass]="{'badge-success': user.Etat, 'badge-danger': !user.Etat}">{{ user.Etat ?
+      'active' : 'inactive' }}</span></td> -->
+
+    </tr>
+
+
+    </tr>
+
+
+  </tbody>
+
+</table>
+
+
+<!---->
+
+<div class="d-flex justify-content-end">
+  <div>
+    <select (change)="onTableSizeChange($event)" class="selectSize">
+      <option *ngFor="let size of tableSizes">
+        {{size}}
+      </option>
+    </select>
+  </div>
+  <pagination-controls previousLabel="Prec" nextLabel="Suiv" (pageChange)="onTableDataChange($event)">
+  </pagination-controls>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Alert!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Attention , cette action est irréversible !
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-danger" (click)="delete()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier un utilisateur</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+
+
+          <label for="Name" class="form-label">Nom : </label>
+
+          <label for="Name" class="form-label">Nom application : </label>
+
+          <input name="Name" value="{{Name}}" [(ngModel)]="Name" style="width: 400px;" type="text"
+            class="rounded-pill form-control" id="Name">
+
+
+          <label for="Lastname" class="form-label">Prenom : </label>
+          <input name="Lastname" [(ngModel)]="Lastname" value="{{Lastname}}" style="width: 400px;" type="text"
+            class="rounded-pill form-control" id="Lastname">
+
+
+          <label for="Lastname" class="form-label">URL application : </label>
+          <input name="Lastname" [(ngModel)]="Lastname" value="{{Lastname}}" style="width: 400px;" type="text"
+            class="rounded-pill form-control" id="Lastname">
+
+
+          <label for="Email" class="form-label">Email : </label>
+          <input disabled name="Email" [(ngModel)]="Email" value="{{Email}}" style="width: 400px;" type="text"
+            class="rounded-pill form-control" id="Email">
+
+
+
+          <label for="Role" class="form-label">Role: </label>
+          <select [(ngModel)]="Role" id="Role" class="rounded-pill form-control" style="width: auto;" type="text"
+            style="width: 400px;">
+
+          <label for="Email" class="form-label">URL application : </label>
+          <input name="Email" [(ngModel)]="Email" value="{{Email}}" style="width: 400px;" type="text"
+            class="rounded-pill form-control" id="Email">
+
+
+            <option value="">-- choisir un role --</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+            <option value="superadmin">SuperAdmin</option>
+
+          </select>
+
+
+            <option value="">-- choisir un role --</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+            <option value="superadmin">SuperAdmin</option>
+
+          </select>
+
+
+          <label for="Note">Note:</label>
+          <textarea id="Note" [(ngModel)]="Note" class="form-control rounded-pill "></textarea>
+
+          <div class="mb-3 file-input">
+            <label for="field">File:</label>
+            <input class="rounded-pill" type="file" [(ngModel)]="field" (change)="uploadFile($event)" />
+          </div>
+
+          <div class="mb-3 file-input">
+            <label for="image">Image:</label>
+            <input class="rounded-pill" data-title="uplaod" type="file" [(ngModel)]="image"
+              (change)="uploadImage($event)" />
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="updateUser()">Update</button>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

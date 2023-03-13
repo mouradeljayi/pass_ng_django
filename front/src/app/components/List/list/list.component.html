@@ -1,0 +1,167 @@
+<style type="text/css">
+  .not-active {
+      pointer-events: none;
+      cursor: default;
+  }
+</style>
+
+
+
+<body>
+
+
+<script>
+  $(function () {
+
+    $('.has-child').doubleClickToGo();
+
+  });
+
+
+
+  </script>
+
+  <script>
+
+(function ($) {
+    $.fn.doubleClickToGo = function () {
+        var secondForDoubleClick = .5; //Add more seconds to increase the interval when two click are considered double click
+        var firstClickTime = null;
+        var secondClickTime = null;
+        this.filter("a").each(function () {
+            $(this).click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var currentTime = new Date().getTime() / 1000;
+                if ((currentTime - firstClickTime > secondForDoubleClick)){
+                    firstClickTime = null;
+                }
+                if (firstClickTime == null) {
+                    firstClickTime = currentTime
+                    secondClickTime = null;
+                } else {
+                    secondClickTime = currentTime
+                    console.log((secondClickTime - firstClickTime))
+                    if ((secondClickTime - firstClickTime) <= secondForDoubleClick) {
+                        firstClickTime = null;
+                        secondClickTime = null;
+                        var link = $(this);
+                        var url = link.attr("href");
+                        window.location.href = url;
+                    }
+                    firstClickTime = null;
+                    secondClickTime = null;
+                }
+            })
+        });
+        return this;
+    };
+}(jQuery));
+
+
+
+  </script>
+
+
+
+
+
+  <div class="d-flex flex-row">
+
+    <div class="p-2">
+      <div class="input-group">
+        <input type="text" class="form-control rounded-pill" placeholder="Chercher une Application">
+        <span class="input-group-text rounded-pill"> <i class="fa-solid fa-search"></i></span>
+      </div>
+    </div>
+
+
+
+
+    <div style="margin-right: 20px;" class="align-self-end ml-auto">
+         <button routerLink="/adduser" routerLinkActive="active" type="button" class=" btn btn-info">Ajouter une Utilisateur</button>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+      <th scope="col">Note</th>
+      <th scope="col">La date de Creation</th>
+      <th scope="col">Etat</th>
+      <th scope="col">Activer</th>
+      <th scope="col">generate</th>
+      <th scope="col">Supprimer</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <tr *ngFor="let user for Users">
+
+
+        <td>{{user.Name}}</td>
+        <td>{{user.Email}}</td>
+        <td>{{user.Role}}</td>
+
+        <td>{{user.Note}}</td>
+        <td>{{user.Date}}</td>
+
+        <td> <button *ngIf="user.Etat == true " margin-right: 40px; type="button" class="btn btn-success">Activer</button>
+          <button *ngIf="user.Etat == false " margin-right: 40px; type="button" class="btn btn-donger">Desactiver</button></td>
+
+
+
+     <!-- le boutons enregistrer enitialise la methode add qui fait l'ajoute d utilisateur -->
+     <td >   <svg routerLink="/update" routerLinkActive="active" type="svg" class="bi bi-arrows-collapse" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894l6-3z"/>
+    </svg></td>
+     <td><button routerLink="/generate" routerLinkActive="active"  type="button" class="btn btn-outline-warning"  data-toggle="modal" data-target="#exampleModal">generate</button>
+      </td>
+        <td>  <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#exampleModal">Supprimer</button></td>
+
+
+
+
+
+    </tr>
+
+  </tbody>
+</table>
+</body>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" DatedeCreation="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" DatedeCreation="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Avertissement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Attention , cette action est irréversible !
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-danger">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
